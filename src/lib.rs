@@ -52,8 +52,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn primes() {
+    fn the_thousandth_prime() {
         let mut generator: Generator1 = Default::default();
-        assert_eq![generator.nth(1000-1), Some(7919)];
+        assert_eq![generator.nth(1000 - 1), Some(7919)];
     }
 }
