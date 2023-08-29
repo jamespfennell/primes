@@ -5,7 +5,7 @@ pub fn generator_1(c: &mut Criterion) {
     c.bench_function("generator1", |b| {
         b.iter(|| {
             let mut generator: Generator1 = Default::default();
-            generator.nth(100000);
+            generator.nth(1000000);
         })
     });
 }
@@ -14,7 +14,7 @@ pub fn generator_3(c: &mut Criterion) {
     c.bench_function("generator3", |b| {
         b.iter(|| {
             let mut generator: Generator3 = Default::default();
-            generator.nth(100000);
+            generator.nth(1000000);
         })
     });
 }

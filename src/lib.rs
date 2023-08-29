@@ -1,7 +1,9 @@
-//! A collection of prime number generators.
+//! A collection of prime number generators based on the algorithm in [1]/
+//!
+//! [1] https://eli.thegreenplace.net/2023/my-favorite-prime-number-generator/
 use std::collections::HashMap;
 
-/// Prime number generator using the algorithm described in [1].
+/// Prime number generator that is identical to the algorithm in the blog post.
 ///
 /// ```
 /// # use primes::*;
@@ -10,8 +12,6 @@ use std::collections::HashMap;
 /// assert_eq![generator.next(), Some(3)];
 /// assert_eq![generator.next(), Some(5)];
 /// ```
-///
-/// [1] https://eli.thegreenplace.net/2023/my-favorite-prime-number-generator/
 pub struct Generator1 {
     d: HashMap<u64, Vec<u64>>,
     q: u64,
@@ -57,7 +57,6 @@ impl Iterator for Generator1 {
 /// assert_eq![generator.next(), Some(5)];
 /// ```
 ///
-/// [1] https://eli.thegreenplace.net/2023/my-favorite-prime-number-generator/
 pub struct Generator3 {
     d: Vec<(u64, u64)>,
     buf: Vec<(u64, u64)>,
