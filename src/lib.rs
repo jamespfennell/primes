@@ -1,4 +1,4 @@
-//! A collection of prime number generators based on the algorithm in [1]/
+//! A collection of prime number generators based on the algorithm in [1].
 //!
 //! [1] https://eli.thegreenplace.net/2023/my-favorite-prime-number-generator/
 use std::collections::HashMap;
@@ -42,6 +42,51 @@ impl Iterator for Generator1 {
                     }
                     self.q += 1;
                 }
+            }
+        }
+    }
+}
+
+/// Prime number generator using the algorithm described in [1], but without using a hash map.
+///
+/// ```
+/// # use primes::*;
+/// let mut generator: Generator2 = Default::default();
+/// assert_eq![generator.next(), Some(2)];
+/// assert_eq![generator.next(), Some(3)];
+/// assert_eq![generator.next(), Some(5)];
+/// ```
+///
+pub struct Generator2 {
+    d: Vec<(u64, u64)>,
+    q: u64,
+}
+
+impl Default for Generator2 {
+    fn default() -> Self {
+        Self {
+            d: Default::default(),
+            q: 2,
+        }
+    }
+}
+
+impl Iterator for Generator2 {
+    type Item = u64;
+    fn next(&mut self) -> Option<Self::Item> {
+        loop {
+            let mut count = 0;
+            for (c, p) in &mut self.d {
+                if *c == self.q {
+                    *c = *c + *p;
+                    count += 1;
+                }
+            }
+            self.q += 1;
+            if count == 0 {
+                let p = self.q - 1;
+                self.d.push((p * p, p));
+                return Some(p);
             }
         }
     }
@@ -115,6 +160,11 @@ mod tests {
     #[test]
     fn the_thousandth_prime_1() {
         let mut generator: Generator1 = Default::default();
+        assert_eq![generator.nth(1000 - 1), Some(7919)];
+    }
+    #[test]
+    fn the_thousandth_prime_2() {
+        let mut generator: Generator2 = Default::default();
         assert_eq![generator.nth(1000 - 1), Some(7919)];
     }
     #[test]
