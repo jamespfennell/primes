@@ -1,4 +1,3 @@
 /target
 /Cargo.lock
-*csv
 analysis/.ipynb_checkpoints

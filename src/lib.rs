@@ -106,6 +106,7 @@ pub struct Generator3 {
     d: Vec<(u64, u64)>,
     buf: Vec<(u64, u64)>,
     q: u64,
+    num_ops: usize,
 }
 
 impl Default for Generator3 {
@@ -114,6 +115,7 @@ impl Default for Generator3 {
             d: Default::default(),
             buf: Default::default(),
             q: 2,
+            num_ops: 0,
         }
     }
 }
@@ -149,7 +151,14 @@ impl Iterator for Generator3 {
                 }
             }
             self.buf.clear();
+            self.num_ops += dest;
         }
+    }
+}
+
+impl Generator3 {
+    pub fn num_ops(&self) -> usize {
+        self.num_ops
     }
 }
 
